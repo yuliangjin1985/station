@@ -5,5 +5,7 @@ create table station
    name varchar(255) not null,
    hd_enabled smallint not null,
    call_sign varchar(255),
-   primary key(id)
+   primary key(id),
+   unique (name),
+   unique (hd_enabled)
 );
