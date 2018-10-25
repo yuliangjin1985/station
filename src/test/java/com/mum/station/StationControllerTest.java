@@ -57,7 +57,7 @@ public class StationControllerTest {
 
   @Test
   public void testRemoveStation() throws Exception {
-    when(stationService.removeStation(25l)).thenReturn(true);
+    when(stationService.removeStation(25l)).thenReturn(1);
     mockMvc.perform(delete("/station/25"))
         .andDo(print())
         .andExpect(status().isOk())

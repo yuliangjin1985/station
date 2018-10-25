@@ -25,11 +25,6 @@ public class StationController {
   @Autowired
   private StationService stationService;
 
-  @GetMapping("/")
-  public String greeting() {
-    return "Hello World";
-  }
-
   @PostMapping("/station")
   public Station addStation(@RequestBody Station station){
     return stationService.addStation(station);

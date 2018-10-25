@@ -7,7 +7,7 @@ import java.util.List;
 public interface StationService {
   public Station addStation(Station station);
 
-  boolean removeStation(long id);
+  int removeStation(long id);
 
   boolean updateStation(Station station);
 

@@ -23,27 +23,28 @@ public class StationServiceImpl implements StationService{
   }
 
   @Override
-  public boolean removeStation(long id) {
-    return false;
+  public int removeStation(long id) {
+    return mapper.deleteById(id);
   }
 
   @Override
   public boolean updateStation(Station station) {
-    return false;
+    mapper.update(station);
+    return true;
   }
 
   @Override
   public Station getByName(String name) {
-    return null;
+    return mapper.searchByStationName(name);
   }
 
   @Override
   public Station getByStationId(String stationId) {
-    return null;
+    return mapper.searchByStationId(stationId);
   }
 
   @Override
   public List<Station> searchedHdEnabled(boolean enabled) {
-    return null;
+    return mapper.searchHdEnabled();
   }
 }
