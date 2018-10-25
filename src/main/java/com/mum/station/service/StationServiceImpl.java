@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 public class StationServiceImpl implements StationService{
 
   @Autowired
@@ -18,7 +17,6 @@ public class StationServiceImpl implements StationService{
   @Override
   public Station addStation(Station station) {
     int insertId = mapper.insert(station);
-    log.info("Inserted station id: " + insertId);
     return station;
   }
 }

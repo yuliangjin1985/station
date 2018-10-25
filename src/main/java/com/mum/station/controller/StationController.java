@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,23 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class StationController {
 
   @Autowired
-  private StationMapper mapper;
-
-  @Autowired
   private StationService stationService;
 
   @GetMapping("/")
   public String greeting() {
-    Station station = new Station(0l, "name", "xxx", true, "");
-    mapper.insert(station);
-    log.info("start insert: " + station.toString());
     return "Hello World";
   }
 
   @PostMapping("/station")
-  public Station addStation(@RequestParam(required = true) String name, @RequestParam(required = true) String stationId,
-      @RequestParam boolean hdEnabled, @RequestParam(required = true) String callSign){
-    Station station = new Station(name, stationId, hdEnabled, callSign);
+  public Station addStation(@RequestBody Station station){
     return stationService.addStation(station);
   }
 
