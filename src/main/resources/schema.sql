@@ -1,4 +1,5 @@
-create table station
+drop table if exists station;
+create table if not exists station
 (
    id integer not null AUTO_INCREMENT,
    station_id varchar (255) not null,
