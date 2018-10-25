@@ -22,6 +22,9 @@ public interface StationMapper {
   @Delete("DELETE FROM STATION WHERE ID = #{id}")
   public int deleteById(long id);
 
+  @Delete("DELETE FROM STATION")
+  public int deleteAll();
+
   @Update("UPDATE STATION SET NAME = #{name}, STATION_ID = #{stationId}, HD_ENABLED = #{hdEnabled}, CALL_SIGN = " +
       "#{callSign} WHERE ID = #{id}")
   public int update(Station station);

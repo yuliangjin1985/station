@@ -11,7 +11,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 //@ToString
-@EqualsAndHashCode
+//@EqualsAndHashCode
 @Data
 public class Station implements Serializable {
   private long id;
@@ -76,16 +76,5 @@ public class Station implements Serializable {
   }
 
   public Station() {
-  }
-
-  @Override
-  public String toString() {
-    return "Station{" +
-        "id=" + id +
-        ", stationId='" + stationId + '\'' +
-        ", name='" + name + '\'' +
-        ", hdEnabled=" + hdEnabled +
-        ", callSign='" + callSign + '\'' +
-        '}';
   }
 }
