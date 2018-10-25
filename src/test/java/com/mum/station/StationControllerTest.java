@@ -2,7 +2,6 @@ package com.mum.station;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -17,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mum.station.controller.StationController;
 import com.mum.station.domain.Station;
 import com.mum.station.service.StationService;
-import com.mum.station.service.StationServiceImpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,13 +57,11 @@ public class StationControllerTest {
 
   @Test
   public void testRemoveStation() throws Exception {
-    Station station = new Station(2l, "station Name", "station 01003", true, "call sign");
-    when(stationService.removeStation(any())).thenReturn(true);
-    mockMvc.perform(delete("/station")
-        .param("stationId", "station 01003"))
+    when(stationService.removeStation(25l)).thenReturn(true);
+    mockMvc.perform(delete("/station/25"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect((ResultMatcher) content().string(containsString("Successful")));
+        .andExpect(MockMvcResultMatchers.content().string(containsString("Remove successfully")));
   }
 
   @Test
@@ -77,31 +74,35 @@ public class StationControllerTest {
         .content(requestStr))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect((ResultMatcher) content().string(containsString("Successful")));
+        .andExpect(MockMvcResultMatchers.content().string(containsString("Update successfully")));
   }
 
   @Test
   public void testSearchByName() throws Exception {
     Station station = new Station(2l, "station Name", "station 01003", true, "call sign");
-    String requestStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(station);
     when(stationService.getByName(any())).thenReturn(station);
     mockMvc.perform(get("/station/name")
         .param("name", "station name"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect((ResultMatcher) content().string(containsString("Successful")));
+        .andExpect(jsonPath("name").value("station Name"))
+        .andExpect(jsonPath("stationId").value("station 01003"))
+        .andExpect(jsonPath("callSign").value("call sign"))
+    ;
   }
 
   @Test
   public void testSearchByStationId() throws Exception {
     Station station = new Station(2l, "station Name", "station 01003", true, "call sign");
-    String requestStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(station);
     when(stationService.getByStationId(any())).thenReturn(station);
-    mockMvc.perform(get("/station/stationId")
+    mockMvc.perform(get("/station/id")
         .param("stationId", "station 01003"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect((ResultMatcher) content().string(containsString("Successful")));
+        .andExpect(jsonPath("name").value("station Name"))
+        .andExpect(jsonPath("stationId").value("station 01003"))
+        .andExpect(jsonPath("callSign").value("call sign"))
+    ;
   }
 
   @Test
@@ -111,11 +112,10 @@ public class StationControllerTest {
     List<Station> list = new ArrayList<>();
     list.add(station);
     list.add(station1);
-    String requestStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(station);
-    when(stationService.searchedHdEnbaled(any())).thenReturn(list);
+    when(stationService.searchedHdEnabled(true)).thenReturn(list);
     mockMvc.perform(get("/station/hds"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect((ResultMatcher) content().string(containsString("Successful")));
+    ;
   }
 }
