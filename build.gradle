@@ -1,12 +1,14 @@
 buildscript {
 	ext {
 		springBootVersion = '2.0.6.RELEASE'
+		gradleDockerVersion   = "1.2"
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
 	}
 }
 
@@ -19,6 +21,15 @@ apply plugin: "jacoco"
 group = 'com.mum'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+jar {
+	baseName = "station"
+	group    = "com.mum"
+	version  = "0.0.1-SNAPSHOT"
+	manifest { attributes "Main-Class": "com.mum.station.StationApplication" }
+}
+
+
 
 repositories {
 	mavenCentral()
