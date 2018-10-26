@@ -1,5 +1,5 @@
 # Project report
-This is a demo project using technologies RESTful, Spring Boot, MyBatis, H2, actuator
+This is a demo project using technologies: RESTful, Spring Boot, MyBatis, H2, actuator, swagger, jacoco, docker, gradle
 ## api
 All the apis could be checked and tested from the swagger UI page as follows:
  ![Total coverage](https://github.com/yuliangjin1985/station/blob/master/pics/apis-swagger.png)
